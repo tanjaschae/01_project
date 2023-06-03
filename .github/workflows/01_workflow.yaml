@@ -12,3 +12,10 @@ jobs:
         run: npm run lint
       - name: test
         run: npm test
+      - name: build
+        run: npm build
+  deployment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: upload
+        run: echo "upload to server"
