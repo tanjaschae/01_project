@@ -1,0 +1,15 @@
+name: Deploy website live
+on:
+  workflow_run:
+    workflows:
+      - "Deploy website"
+    types:
+      - completed
+    branches:
+      - main
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy live
+        run: echo "Deploying app live"
