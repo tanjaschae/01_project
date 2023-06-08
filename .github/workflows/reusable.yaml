@@ -1,0 +1,26 @@
+name: Reusable
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+        default: develop
+      artifact:
+        required: true
+        type: string
+jobs:
+  reusable_workflow_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: download artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ inputs.artifact }}
+      - name: check if downloaded
+        run: ls -la
+      - name: use output from build job
+        run: echo '${{ needs.build.outputs.js-file }}'
+      - name: Deploy on ${{ inputs.environment }}
+        run: echo "Deploying"
+
