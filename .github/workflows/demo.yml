@@ -60,20 +60,16 @@ jobs:
     with:
       environment: develop
       artifact: dist-files
+  check-barrikade:
+    needs: deploy-develop
+    runs-on: ubuntu-latest
+    steps:
+      - name: check-barrikade
+        run: echo "Check barrikade"
+
   deploy-live:
-    needs: build
+    needs: check-barrikade
     uses: ./.github/workflows/reusable.yaml
     with:
       environment: live
       artifact: dist-files
-#    steps:
-#      - name: download artifacts
-#        uses: actions/download-artifact@v3
-#        with:
-#          name: dist-files
-#      - name: check if downloaded
-#        run: ls -la
-#      - name: use output from build job
-#        run: echo '${{ needs.build.outputs.js-file }}'
-#      - name: Deploy
-#        run: echo "Deploying..."
