@@ -54,11 +54,17 @@ jobs:
         with:
           name: dist-files
           path: dist
-  deploy:
+  deploy-develop:
     needs: build
     uses: ./.github/workflows/reusable.yaml
     with:
       environment: develop
+      artifact: dist-files
+  deploy-live:
+    needs: build
+    uses: ./.github/workflows/reusable.yaml
+    with:
+      environment: live
       artifact: dist-files
 #    steps:
 #      - name: download artifacts
