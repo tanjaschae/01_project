@@ -62,6 +62,12 @@ jobs:
       artifact: dist-files
     secrets:
       test-secret: ${{secrets.TEST_SECRET}}
+  deployment-result:
+    needs: deploy-develop
+    runs-on: ubuntu-latest
+    steps:
+      - name: print output
+        run: echo "${{ needs.deploy-develop.outputs.flow-result }}"
   check-barrikade:
     needs: deploy-develop
     runs-on: ubuntu-latest

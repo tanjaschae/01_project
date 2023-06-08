@@ -12,8 +12,13 @@ on:
     secrets:
       test-secret:
         required: true
+    outputs:
+      flow-result:
+        value: ${{ jobs.reusable_workflow_job.outputs.job-result}}
 jobs:
   reusable_workflow_job:
+    outputs:
+      job-result: ${{ steps.deployment-output.outputs.step-result }}
     runs-on: ubuntu-latest
     steps:
       - name: download artifacts
@@ -26,4 +31,7 @@ jobs:
         run: echo '${{ needs.build.outputs.js-file }}'
       - name: Deploy on ${{ inputs.environment }}
         run: echo "Deploying with ${{secrets.test-secret}}"
+      - name: set result output
+        id: deployment-output
+        run: echo "step-result=success on ${{inputs.environment}}" >> $GITHUB_OUTPUT
 
