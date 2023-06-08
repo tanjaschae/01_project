@@ -60,6 +60,8 @@ jobs:
     with:
       environment: develop
       artifact: dist-files
+    secrets:
+      test-secret: ${{secrets.TEST_SECRET}}
   check-barrikade:
     needs: deploy-develop
     runs-on: ubuntu-latest
@@ -73,3 +75,5 @@ jobs:
     with:
       environment: live
       artifact: dist-files
+    secrets:
+      test-secret: ${{secrets.TEST_SECRET}}
